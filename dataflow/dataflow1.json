@@ -1,0 +1,52 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SourceFile",
+						"type": "DatasetReference"
+					},
+					"name": "CSV"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "OutputJsonFile",
+						"type": "DatasetReference"
+					},
+					"name": "outputfile"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          FirstName as string,",
+				"          LastName as string,",
+				"          Department as string,",
+				"          Salary as string,",
+				"          Skill1 as string,",
+				"          Skill2 as string,",
+				"          Skill3 as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> CSV",
+				"CSV derive(info = @(fName=FirstName,",
+				"          lName=LastName),",
+				"          skills = array(Skill1,Skill2,Skill3)) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> outputfile"
+			]
+		}
+	}
+}

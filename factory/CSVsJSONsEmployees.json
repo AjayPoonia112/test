@@ -1,0 +1,9 @@
+{
+	"name": "CSVsJSONsEmployees",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d411147c-c499-43ea-9193-ee4ace189285",
+		"tenantId": "9f87767b-0148-4f0f-985f-8c29809f48c5"
+	}
+}
